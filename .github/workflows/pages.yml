@@ -24,10 +24,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install
-        run: npm ci --no-audit --no-fund
+        # No committed lockfile yet — Starlight + Astro dep tree updates
+        # often, so `npm install` is the pragmatic choice for a docs
+        # site (build reproducibility isn't critical here).
+        run: npm install --no-audit --no-fund
 
       - name: Build Astro site
         run: npm run build
