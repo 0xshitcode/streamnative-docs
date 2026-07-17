@@ -15,11 +15,30 @@ repository URL before anything shows up.
 
 ## Can it play DRM-protected streams?
 
-- **ClearKey** — yes, it's a W3C EME open standard that every browser
-  supports natively.
-- **Widevine / PlayReady** — **no**. The Tauri webview
-  (WebKitGTK on Linux, WebView2 on Windows) doesn't bundle a CDM,
-  and StreamNative has no plans to sideload one.
+- **ClearKey** (W3C EME open standard) — **yes**. Every browser
+  supports it natively, and StreamNative wires the keys through
+  dash.js `setProtectionData({'org.w3.clearkey': {clearkeys}})`.
+- **Widevine / PlayReady** — **no, and it will not change**. The Tauri
+  webview embeds:
+  - **WebView2** on Windows (Edge Chromium runtime): does NOT ship the
+    Widevine CDM by default; the Edge browser itself has it because
+    Microsoft licenses it directly, but WebView2 is deliberately
+    stripped.
+  - **WebKitGTK** on Linux: has never shipped a Widevine CDM.
+  Enabling Widevine would require: (a) a commercial licence from
+  Google (only granted to major distributors like Netflix), and (b)
+  sideloading a `libwidevinecdm` binary the app is not allowed to
+  redistribute. **That is a licence violation and StreamNative will
+  not do it.**
+
+  If you specifically need Widevine, switch to an Electron-based
+  client that uses `castlabs/electron-releases` (which is licensed to
+  bundle Widevine). This is out of scope for StreamNative.
+
+  **In practice**: extension-scraped sources (the anime / donghua /
+  movies typical extensions target) almost never use Widevine. They
+  use plain HLS, DASH, custom AES obfuscation (kuronime, for example),
+  or embed iframes — all of which StreamNative handles.
 
 ## Torrents / magnets?
 
