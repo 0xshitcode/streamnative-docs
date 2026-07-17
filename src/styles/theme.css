@@ -1,0 +1,6 @@
+/* Netflix-ish red accent to match the app. */
+:root {
+  --sl-color-accent: #e50914;
+  --sl-color-accent-high: #ff2a2f;
+  --sl-color-accent-low: #6b0910;
+}

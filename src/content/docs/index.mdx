@@ -1,0 +1,59 @@
+---
+title: StreamNative
+description: A cross-platform desktop media aggregator inspired by Cloudstream.
+template: splash
+hero:
+  tagline: |
+    Netflix-style desktop app for the extension-driven world of Cloudstream.
+    Bring your own repositories, keep everything in sync with Trakt/AniList/
+    Simkl, and never look at ten browser tabs again.
+  actions:
+    - text: Install
+      link: /streamnative-docs/install/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/0xshitcode/streamnative
+      icon: external
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+
+## What is StreamNative?
+
+StreamNative is a **Tauri 2** desktop app (Windows + Linux) that behaves
+like Cloudstream but ships as a native binary. You install `.js`
+extensions from repositories; StreamNative renders the results in a
+Netflix-style shell with a built-in HLS/DASH/MP4 player and a local
+HTTP proxy that neutralises CORS + anti-hotlinking.
+
+<CardGrid>
+  <Card title="Multi-format player" icon="rocket">
+    hls.js, dash.js, native MP4, sandboxed iframe fallback, WebVTT
+    subtitles, and ClearKey DRM — all wired through a local proxy so
+    the frontend never touches a third-party host directly.
+  </Card>
+  <Card title="Rich enrichment" icon="star">
+    Automatic TMDB + AniList metadata overlay for every extension.
+    Trailer autoplay in the hero, quality selector in the player,
+    AniSkip intro/outro detection via MAL-Sync.
+  </Card>
+  <Card title="Sync with your trackers" icon="approve-check">
+    Trakt device flow, Simkl PIN flow, and paste-token auth for MAL /
+    AniList / Kitsu. Watch progress pushes to every connected service
+    automatically.
+  </Card>
+  <Card title="Serious about safety" icon="shield">
+    Per-extension host allow-list, Argon2id-hashed parental PIN,
+    optional token-including backup archive, Argon2id.
+  </Card>
+</CardGrid>
+
+## Why not just Cloudstream?
+
+Cloudstream is Android-only. StreamNative is desktop-native: keyboard
+shortcuts, byte-range parallel downloads, PiP-friendly window controls,
+system-native file dialogs, and no APK install ceremony. The extension
+format is a subset of Cloudstream's plugin API translated into
+sandboxed JavaScript — most of the same providers work with a thin
+port.
