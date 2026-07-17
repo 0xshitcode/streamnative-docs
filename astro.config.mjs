@@ -1,11 +1,13 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
-// GitHub Pages serves this repo at /streamnative-docs/. Update `site`
-// if you swap to a custom domain — Starlight uses it to build canonical
-// URLs + sitemap entries.
+// GitHub Pages serves this repo at /streamnative-docs/. `site` is
+// intentionally left unset here: enabling it triggers the auto-
+// registered @astrojs/sitemap integration which crashes under Astro
+// 4.16 + Starlight 0.29 with "Cannot read properties of undefined
+// (reading 'reduce')". Canonical URLs still work via `base` + Starlight
+// internals; we can re-enable `site` once upstream ships the fix.
 export default defineConfig({
-  site: "https://0xshitcode.github.io",
   base: "/streamnative-docs",
   integrations: [
     starlight({
